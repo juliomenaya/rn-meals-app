@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View, FlatList, TouchableOpacity, Platform } from 'react-native';
-import Colors from '../constants/Colors';
+import { Button, StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
 
 
@@ -34,11 +33,7 @@ const Categories = (props) => {
 
 // "navigationOptions" could be a function that returns an object. See "CategoryMeals.js"
 Categories.navigationOptions = {
-    headerTitle: 'Meal Categories',
-    headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
-    },
-    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
+    headerTitle: 'Meal Categories',    
 }
 
 export default Categories;
