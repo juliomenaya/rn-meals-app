@@ -1,11 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { AppLoading } from 'expo';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
-const CategoryMeals = () => {
+
+const CategoryMeals = props => {
+
+    const goToMealDetail = () => {
+        props.navigation.navigate('MealDetail');
+    };
+
     return (
         <View style={styles.screen}>
             <Text>The category meal screen</Text>
+            <Button title='Give me details!' onPress={goToMealDetail} />
         </View>
     );
 };
