@@ -1,19 +1,45 @@
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View, FlatList, TouchableOpacity, Platform } from 'react-native';
+import Colors from '../constants/Colors';
+import { CATEGORIES } from '../data/dummy-data';
+
 
 const Categories = (props) => {
+    const handleCategorySelected = (itemData) => {
+        props.navigation.navigate('CategoryMeals', {category: itemData.item})
+    };
+
+    const renderGridItem = (itemData) => {
+        return (
+            <TouchableOpacity 
+                style={{...styles.gridItem, backgroundColor: itemData.item.color}}
+                onPress={handleCategorySelected.bind(this, itemData)}
+            >
+                <View>
+                    <Text style={styles.categoryTitle}>{itemData.item.title}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    };
+
     return (
-        <View style={styles.screen}>
-            <Text>The categories screen</Text>
-            <Button title='Go to Meals!' onPress={() => {
-                // props passed down by MealsNavigator component
-                // we use navigate function to go to 'routeName' arg screen, in this case 'CategoryMeals'
-                // 'routeName' args must be one of the object keys declared for 'createStackNavigator' in 'MealsNavigator'
-                props.navigation.navigate({routeName: 'CategoryMeals'})
-            }} />
-        </View>
+        <FlatList 
+            keyExtractor={(item, index) => item.id} 
+            data={CATEGORIES} 
+            renderItem={renderGridItem} 
+            numColumns={2} 
+        />
     );
 };
+
+// "navigationOptions" could be a function that returns an object. See "CategoryMeals.js"
+Categories.navigationOptions = {
+    headerTitle: 'Meal Categories',
+    headerStyle: {
+        backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+    },
+    headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
+}
 
 export default Categories;
 
@@ -22,5 +48,16 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    gridItem: {
+        flex: 1,
+        margin: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 150,
+        paddingVertical: 10
+    },
+    categoryTitle: {
+        fontSize: 20
     }
 });

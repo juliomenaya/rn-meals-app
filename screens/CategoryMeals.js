@@ -18,6 +18,13 @@ const CategoryMeals = props => {
 
 export default CategoryMeals;
 
+CategoryMeals.navigationOptions = navigationData => {
+    const category = navigationData.navigation.getParam('category');
+    return {
+        headerTitle: category.title
+    }
+}
+
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
