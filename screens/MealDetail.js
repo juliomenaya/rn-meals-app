@@ -1,12 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const MealDetail = () => {
+
+const MealDetail = props => {
+    const selectedMeal = props.navigation.getParam('meal');;
     return (
         <View style={styles.screen}>
-            <Text>Meal detail screen</Text>
+            <Text>{selectedMeal.title}</Text>
         </View>
     );
+};
+
+MealDetail.navigationOptions = navigationData => {
+    const selectedMeal = navigationData.navigation.getParam('meal');
+    return {
+        headerTitle: selectedMeal.title
+    };
 };
 
 export default MealDetail;

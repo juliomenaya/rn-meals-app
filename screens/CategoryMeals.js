@@ -7,7 +7,13 @@ import MealItem from '../components/MealItem';
 const CategoryMeals = props => {
 
     const category = props.navigation.getParam('category');
+
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.indexOf(category.id) >= 0)
+
+    const goToMealDetail = (meal) => {
+        props.navigation.navigate('MealDetail', { 'meal': meal });
+    };
+
     const renderMealItem = itemData => {
         return (
             <MealItem 
@@ -16,15 +22,12 @@ const CategoryMeals = props => {
                 affordability={itemData.item.affordability}
                 complexity={itemData.item.complexity}
                 image={itemData.item.imageUrl}
-                onSelectMeal={() => {}}
+                onSelectMeal={goToMealDetail.bind(this, itemData.item)}
             />
         )
     };
 
 
-    const goToMealDetail = () => {
-        props.navigation.navigate('MealDetail');
-    };
 
     return (
         <View style={styles.screen}>
