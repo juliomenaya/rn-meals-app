@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, FlatList } from 'react-native';
 import { CATEGORIES, MEALS } from '../data/dummy-data';
+import MealItem from '../components/MealItem';
 
 
 const CategoryMeals = props => {
@@ -9,9 +10,14 @@ const CategoryMeals = props => {
     const displayedMeals = MEALS.filter(meal => meal.categoryIds.indexOf(category.id) >= 0)
     const renderMealItem = itemData => {
         return (
-            <View>
-                <Text>{itemData.item.title}</Text>
-            </View>
+            <MealItem 
+                title={itemData.item.title}
+                duration={itemData.item.duration}
+                affordability={itemData.item.affordability}
+                complexity={itemData.item.complexity}
+                image={itemData.item.imageUrl}
+                onSelectMeal={() => {}}
+            />
         )
     };
 
@@ -22,7 +28,12 @@ const CategoryMeals = props => {
 
     return (
         <View style={styles.screen}>
-            <FlatList data={displayedMeals} keyExtractor={(item, index) => item.id} renderItem={renderMealItem}/>
+            <FlatList 
+                data={displayedMeals} 
+                keyExtractor={(item, index) => item.id} 
+                renderItem={renderMealItem}
+                style={{width: '100%'}}
+            />
         </View>
     );
 };
@@ -40,6 +51,10 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        marginBottom: 10
+
     }
 });
