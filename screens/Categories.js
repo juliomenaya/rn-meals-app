@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
+import CategoryGridTile from '../components/CategoryGridTile';
 
 
 const Categories = (props) => {
@@ -10,15 +11,12 @@ const Categories = (props) => {
 
     const renderGridItem = (itemData) => {
         return (
-            <TouchableOpacity 
-                style={{...styles.gridItem, backgroundColor: itemData.item.color}}
-                onPress={handleCategorySelected.bind(this, itemData)}
-            >
-                <View>
-                    <Text style={styles.categoryTitle}>{itemData.item.title}</Text>
-                </View>
-            </TouchableOpacity>
-        )
+            <CategoryGridTile 
+                title={itemData.item.title} 
+                onSelect={handleCategorySelected.bind(this, itemData)} 
+                color={itemData.item.color}
+            />
+        );
     };
 
     return (
@@ -44,15 +42,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    gridItem: {
-        flex: 1,
-        margin: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 150,
-        paddingVertical: 10
-    },
-    categoryTitle: {
-        fontSize: 20
-    }
+    // gridItem: {
+    //     flex: 1,
+    //     margin: 15,
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     height: 150,
+    //     paddingVertical: 10
+    // },
+    // categoryTitle: {
+    //     fontSize: 20
+    // }
 });
