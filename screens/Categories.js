@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import { CATEGORIES } from '../data/dummy-data';
 import CategoryGridTile from '../components/CategoryGridTile';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import HeaderButton from '../components/HeaderButton';
 
 
 const Categories = (props) => {
@@ -30,9 +32,22 @@ const Categories = (props) => {
 };
 
 // "navigationOptions" could be a function that returns an object. See "CategoryMeals.js"
-Categories.navigationOptions = {
-    headerTitle: 'Meal Categories',    
-}
+Categories.navigationOptions = (navData) => {
+    return ({
+        headerTitle: 'Meal Categories',
+        headerLeft: () => {
+            return (
+                <HeaderButtons HeaderButtonComponent={HeaderButton}>
+                    <Item 
+                        title='Menu'
+                        iconName='ios-menu'
+                        onPress={() => navData.navigation.toggleDrawer()}
+                    />
+                </HeaderButtons>
+            );
+        }
+    })
+};
 
 export default Categories;
 
@@ -41,16 +56,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    // gridItem: {
-    //     flex: 1,
-    //     margin: 15,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     height: 150,
-    //     paddingVertical: 10
-    // },
-    // categoryTitle: {
-    //     fontSize: 20
-    // }
+    }
 });
