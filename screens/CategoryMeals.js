@@ -1,5 +1,6 @@
 import React from 'react';
-import { CATEGORIES, MEALS } from '../data/dummy-data';
+// because this is a functional component we use "useSelector" instead of mapStateToProps, dispatchToProps
+import { useSelector } from 'react-redux';
 import MealList from '../components/MealList';
 
 
@@ -7,7 +8,11 @@ const CategoryMeals = props => {
 
     const category = props.navigation.getParam('category');
 
-    const displayedMeals = MEALS.filter(meal => meal.categoryIds.indexOf(category.id) >= 0)
+    // "meals" prop is available since we declared it in rootReaducer at App.js
+    const availableMeals = useSelector(state => state.meals.filteredMeals);
+
+
+    const displayedMeals = availableMeals.filter(meal => meal.categoryIds.indexOf(category.id) >= 0)
 
     return (
         <MealList 
